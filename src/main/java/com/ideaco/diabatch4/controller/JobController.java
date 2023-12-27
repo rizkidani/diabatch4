@@ -17,7 +17,6 @@ public class JobController {
 
     @GetMapping("/data")
     public String getData() {
-//        return jobService.getData();
         return "Hello World";
     }
 
@@ -31,8 +30,8 @@ public class JobController {
         return jobService.getData(jobId);
     }
 
-    @GetMapping("/dataJpql")
-    public Optional<JobModel> getDataJpql(@RequestParam("jobId") int jobId) {
+    @GetMapping("/dataOptionalWithJPQL")
+    public Optional<JobModel> getDataOptionalWithJPQL(@RequestParam("jobId") int jobId) {
         return jobService.getDataOptional(jobId);
     }
 }

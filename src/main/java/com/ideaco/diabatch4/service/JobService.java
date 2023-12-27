@@ -23,4 +23,9 @@ public class JobService {
         Optional<JobModel> data = jobRepository.findByJPQLJob(jobId);
         return data;
     }
+
+    public List<JobModel> getDataList() {
+        List<JobModel> data = jobRepository.findByDataJob();
+        return data;
+    }
 }
