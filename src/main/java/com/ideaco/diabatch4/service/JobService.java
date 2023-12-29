@@ -5,6 +5,7 @@ import com.ideaco.diabatch4.model.JobModel;
 import com.ideaco.diabatch4.repository.JobRepository;
 import com.ideaco.diabatch4.request.JobRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,10 @@ public class JobService {
 
     @Autowired
     private JobRepository jobRepository;
+    @Value(value = "${server.environment}")
+    private String serverEnv;
+
+    private boolean jobStatus = false;
 
     /* ------------------- GET ------------------- */
 
@@ -103,5 +108,17 @@ public class JobService {
         jobDTO.setJobSalary(item.getJobSalary());
 
         return jobDTO;
+    }
+
+    public String getServerEnv(){
+        return serverEnv;
+    }
+
+    public void setJobStatus(boolean value){
+        this.jobStatus = value;
+    }
+
+    public boolean getJobStatus(){
+        return jobStatus;
     }
 }

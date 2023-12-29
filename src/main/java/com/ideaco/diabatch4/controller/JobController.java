@@ -3,9 +3,12 @@ package com.ideaco.diabatch4.controller;
 import com.ideaco.diabatch4.dto.JobDTO;
 import com.ideaco.diabatch4.model.JobModel;
 import com.ideaco.diabatch4.request.JobRequest;
+import com.ideaco.diabatch4.response.GetJobResponse;
 import com.ideaco.diabatch4.service.FileService;
 import com.ideaco.diabatch4.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -102,8 +105,26 @@ public class JobController {
 
     /* ------------------- DTO ------------------- */
 
-    @GetMapping("/dataWithDTO")
-    public JobDTO getDataWithDTO(@RequestParam("jobId") int jobId) {
-        return jobService.dataWithDTO(jobId);
+    @GetMapping("/data-with-dto")
+    public ResponseEntity<GetJobResponse> getDataWithDTO(@RequestParam("jobId") int jobId) {
+        JobDTO jobDTO = jobService.dataWithDTO(jobId);
+        GetJobResponse getJobResponse = new GetJobResponse();
+        getJobResponse.setData(jobDTO);
+        getJobResponse.setSuccess(true);
+        getJobResponse.setMessage("Success");
+        getJobResponse.setErrorCode("");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(getJobResponse);
+    }
+
+    @GetMapping("/server-env")
+    public ResponseEntity<String> getServerEnv(){
+
+        return ResponseEntity.ok().body(jobService.getServerEnv());
+    }
+
+    @PostMapping("/job-status")
+    public boolean setJobStatus(@RequestParam boolean status){
+        jobService.setJobStatus(status);
+        return jobService.getJobStatus();
     }
 }

@@ -1,5 +1,6 @@
 package com.ideaco.diabatch4.service;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -7,7 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-@Service
 public class FileService {
 
     private final Path root = Paths.get("uploads");
